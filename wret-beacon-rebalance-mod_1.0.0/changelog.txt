@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 14. 08. 2021
+  Bugfix:
+    - Scripts now checks to make sure entities are valid, for those times when you place and delete entities in the same tick. (cough IR2 cough)
+  Update:
+    - Moved Classic Beacon files into the mod itself, and added blank sprites for the module visualization for when mods are looking for those. (cough editor extensions cough)
+    - Fixed mk2 and mk3 shadows.
+    - Removed Classic Beacon as a dependency (cuz, y'know, I integrated it)
+    - Added some mods to the incompatibilities list that would likely cause issues if installed simultaneously.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0 - First public release
+Date: 28. 07. 2021
+  Changes:
+    - Initial release.

@@ -24,7 +24,7 @@ beacon3.icons = {
 local beacon = data.raw["item"]["beacon"]
 beacon.icon = nil
 beacon.icons = {
-	{icon = "__classic-beacon__/graphics/icon/beacon.png", icon_size = 64, icon_mipmaps = 4},
+	{icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png", icon_size = 64, icon_mipmaps = 4},
 	{icon = "__wret-beacon-rebalance-mod__/graphics/icon/one.png", icon_size = 64, icon_mipmaps = 4, scale = .25, shift = {-8, 8}}
 }
 

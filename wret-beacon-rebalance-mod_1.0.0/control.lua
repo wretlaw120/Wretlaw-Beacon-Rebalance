@@ -136,6 +136,7 @@ end
 
 local function on_built(event)
 	
+	if not event.created_entity and not event.entity then return end
 	local entity = event.created_entity or event.entity
 	local surface = entity.surface
 	local surface_name = surface.name

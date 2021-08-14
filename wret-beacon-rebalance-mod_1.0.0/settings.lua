@@ -23,4 +23,12 @@ data:extend({
 		setting_type = "startup",
 		default_value = false,
 	},
+	{
+        type = "bool-setting",
+        name = "classic-beacon-do-high-res",
+        setting_type = "startup",
+        default_value = true,
+		hidden = true,
+		forced_value = true,
+    },
 })

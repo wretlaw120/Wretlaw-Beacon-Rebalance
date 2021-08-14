@@ -1,6 +1,5 @@
 --beacon mk1 at end
 
-
 --beacon mk2
 local beacon2 = util.table.deepcopy(data.raw["beacon"]["beacon"])
 beacon2.name = "beacon2"
@@ -25,7 +24,7 @@ beacon2.energy_usage = "12MW"
     }
     -- Beacon2 Base Shadow
     beacon2.graphics_set.animation_list[1].animation.layers[2].hr_version = {
-        filename = "__classic-beacon__/graphics/entity/beacon/hr-beacon-base-shadow.png",
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base-shadow.png",
         width = 232,
         height = 186,
         shift = util.by_pixel(11*(4/3), 1.5*(4/3)),
@@ -45,7 +44,7 @@ beacon2.energy_usage = "12MW"
     }
     -- Beacon2 Antenna Shadow
     beacon2.graphics_set.animation_list[2].animation.layers[2].hr_version = {
-        filename = "__classic-beacon__/graphics/entity/beacon/hr-beacon-antenna-shadow.png",
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna-shadow.png",
         width = 126,
         height = 98,
         line_length = 8,
@@ -56,7 +55,21 @@ beacon2.energy_usage = "12MW"
         scale = 0.5*(4/3),
     }
 
---beacen mk3 
+beacon2.water_reflection = {
+    pictures = {
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/beacon-reflection.png",
+        priority = "extra-high",
+        width = 24,
+        height = 28,
+        shift = util.by_pixel(0*(4/3), 55*(4/3)),
+        variation_count = 1,
+        scale = 5*(4/3),
+    },
+    rotate = false,
+    orientation_to_variation = false
+}
+
+--beacon mk3 
 local beacon3 = util.table.deepcopy(data.raw["beacon"]["beacon"])
 beacon3.name = "beacon3"
 beacon3.module_specification.module_slots = 20
@@ -80,7 +93,7 @@ beacon3.energy_usage = "20MW"
     }
     -- Beacon3 Base Shadow
     beacon3.graphics_set.animation_list[1].animation.layers[2].hr_version = {
-        filename = "__classic-beacon__/graphics/entity/beacon/hr-beacon-base-shadow.png",
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base-shadow.png",
         width = 232,
         height = 186,
         shift = util.by_pixel(11*(4/3), 1.5*(4/3)),
@@ -100,7 +113,7 @@ beacon3.energy_usage = "20MW"
     }
     -- Beacon3 Antenna Shadow
     beacon3.graphics_set.animation_list[2].animation.layers[2].hr_version = {
-        filename = "__classic-beacon__/graphics/entity/beacon/hr-beacon-antenna-shadow.png",
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna-shadow.png",
         width = 126,
         height = 98,
         line_length = 8,
@@ -110,6 +123,20 @@ beacon3.energy_usage = "20MW"
         draw_as_shadow = true,
         scale = 0.5*(4/3),
     }
+
+beacon3.water_reflection = {
+    pictures = {
+        filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/beacon-reflection.png",
+        priority = "extra-high",
+        width = 24,
+        height = 28,
+        shift = util.by_pixel(0*(4/3), 55*(4/3)),
+        variation_count = 1,
+        scale = 5*(4/3),
+    },
+    rotate = false,
+    orientation_to_variation = false
+}
 
 --beacon mk1 (put last so it doesnt interfere with the others)
 local beacon = data.raw["beacon"]["beacon"]
