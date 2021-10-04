@@ -57,6 +57,7 @@ local function detect_overload(machine)
 		if beacon_tiles[marker_x] ~= nil then
 			for marker_y = start_y, end_y do
 				if beacon_tiles[marker_x][marker_y] ~= nil then
+					if type(beacon_tiles[marker_x][marker_y]) == "number" then beacon_tiles[marker_x][marker_y] = {} end
 					if #beacon_tiles[marker_x][marker_y] > 1 then --if the number of beacons affecting a tile under the machine is more than one, disable machine
 						disable_machine()
 						return
