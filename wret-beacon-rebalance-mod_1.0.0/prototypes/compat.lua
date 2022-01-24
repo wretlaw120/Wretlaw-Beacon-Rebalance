@@ -1,8 +1,9 @@
 --compat changes
 
---K2
+--K2 compatibility
 if mods["Krastorio2"] then
 	
+	if settings.startup["wret-change-K2-beacon"].value then
 	local singularity_beacon = data.raw["beacon"]["kr-singularity-beacon"]
 	singularity_beacon.module_specification.module_slots = 15
 	singularity_beacon.module_specification.module_info_max_icons_per_row = 5
@@ -10,6 +11,7 @@ if mods["Krastorio2"] then
 	singularity_beacon.module_specification.module_info_icon_scale = .25
 	singularity_beacon.module_specification.module_info_multi_row_initial_height_modifier = -.5
 	singularity_beacon.supply_area_distance = singularity_beacon.supply_area_distance + .2
+	end
 	
 	data.raw["recipe"]["beacon2-recipe"].ingredients = {
 		{"beacon", 1},
@@ -25,8 +27,8 @@ if mods["Krastorio2"] then
 		{"copper-cable", 30},
 		{"energy-control-unit", 20},
 		{"substation", 4},
-		{"advanced-radar", 4}
 	}
+	if settings.startup["kr-rebalance-radar"].value then table.insert(data.raw["recipe"]["beacon3-recipe"].ingredients, {"advanced-radar", 4}) end
 	data.raw["technology"]["effect-transmission-2"].unit.ingredients = {
 		{"production-science-pack", 1},
 		{"utility-science-pack", 1},
@@ -49,15 +51,24 @@ if mods["Krastorio2"] then
 		"electric-energy-distribution-2",
 		"kr-ai-core",
 		"kr-energy-control-unit",
-		"advanced-radar",
 	}
+	if settings.startup["kr-rebalance-radar"].value then table.insert(data.raw["technology"]["effect-transmission-3"].prerequisites, "advanced-radar") end
 	
 end
 
---remove FE+ beacons in favor of rebalance's beacons
+--FE+ compatibility
 if mods["FactorioExtended-Plus-Module"] then
 	
+	if settings.startup["wret-block-FE-beacons"].value then
 	data.raw["technology"]["effect-transmission-mk2"].enabled = false
 	data.raw["technology"]["effect-transmission-mk3"].enabled = false
+	end
+	
+	if settings.startup["wret-FE-beacons-modification"].value then
+		local beaconmk2 = data.raw["beacon"]["beacon-mk2"]
+		local beaconmk3 = data.raw["beacon"]["beacon-mk3"]
+		beaconmk2.module_specification.module_slots = 10
+		beaconmk3.module_specification.module_slots = 12
+	end
 	
 end

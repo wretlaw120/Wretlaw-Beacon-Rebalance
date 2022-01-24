@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 24. 01. 2022
+  Updates:
+    -Fixed issue with the option to disable the advanced radar in K2.
+    -Added setting for rebalancing K2's Singularity Beacon.
+	-Added settings for FE+ beacons compatibility, so you can turn them on if you want to.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 23. 01. 2022
   Updates:

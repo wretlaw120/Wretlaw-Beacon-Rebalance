@@ -31,4 +31,22 @@ data:extend({
 		hidden = true,
 		forced_value = true,
     },
+	{
+        type = "bool-setting",
+        name = "wret-change-K2-beacon",
+        setting_type = "startup",
+        default_value = true,
+    },
+	{
+        type = "bool-setting",
+        name = "wret-block-FE-beacons",
+        setting_type = "startup",
+        default_value = true,
+    },
+	{
+        type = "bool-setting",
+        name = "wret-FE-beacons-modification",
+        setting_type = "startup",
+        default_value = true,
+    },
 })
