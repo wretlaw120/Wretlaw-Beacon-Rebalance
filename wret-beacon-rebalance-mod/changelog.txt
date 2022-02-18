@@ -1,0 +1,57 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+Date: 18. 02. 2022
+  Updates:
+    - Picker dollies compatibility.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.8
+Date: 09. 02. 2022
+  Updates:
+    - Apparently machines without module slots *can* be affected by beacons. Well, at least they can't cheat the beacon limits anymore. (again).
+---------------------------------------------------------------------------------------------------
+Version: 1.0.7
+Date: 08. 02. 2022
+  Updates:
+    - Apparently machines without module slots *can* be affected by beacons. Well, at least they can't cheat the beacon limits anymore.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+Date: 04. 02. 2022
+  Updates:
+    - Fixed goofy mistake on my part. Won't crash with K2 if you turn off beacon 3's.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 24. 01. 2022
+  Updates:
+    - Fixed issue with the option to disable the advanced radar in K2.
+    - Added setting for rebalancing K2's Singularity Beacon.
+    - Added settings for FE+ beacons compatibility, so you can turn them on if you want to.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 23. 01. 2022
+  Updates:
+    - Added K2 version of beacon recipes, better tech tree integration.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 23. 01. 2022
+  Updates:
+    - K2 and FE+ modules compatibility. K2's Singularity Beacon now has 15 slots, and FE+ modules' beacons are disabled. They will still be accessbile in savegames which have already researched them, though.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 14. 08. 2021
+  Bugfix:
+    - Unwanted "number" types now become empty tables, to fix bugs.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 14. 08. 2021
+  Bugfix:
+    - Scripts now checks to make sure entities are valid, for those times when you place and delete entities in the same tick. (cough IR2 cough)
+  Update:
+    - Moved Classic Beacon files into the mod itself, and added blank sprites for the module visualization for when mods are looking for those. (cough editor extensions cough)
+    - Fixed mk2 and mk3 shadows.
+    - Removed Classic Beacon as a dependency (cuz, y'know, I integrated it)
+    - Added some mods to the incompatibilities list that would likely cause issues if installed simultaneously.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0 - First public release
+Date: 28. 07. 2021
+  Changes:
+    - Initial release.
