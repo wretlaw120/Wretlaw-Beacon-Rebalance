@@ -1,7 +1,7 @@
 --beacon mk1 at end
 
 --beacon mk2
-local beacon2 = util.table.deepcopy(data.raw["beacon"]["beacon"])
+local beacon2 = util.table.deepcopy(beacon_fake)
 beacon2.name = "beacon2"
 beacon2.module_specification.module_slots = 15
 beacon2.supply_area_distance = 14.2
@@ -12,6 +12,7 @@ beacon2.collision_box = {{-1.8, -1.8}, {1.8, 1.8}}
 beacon2.selection_box = {{-2, -2}, {2, 2}}
 beacon2.drawing_box = {{-2, -2}, {2, 2}}
 beacon2.energy_usage = "12MW"
+if beacon2.next_upgrade then beacon2.next_upgrade = nil end
 
 --the bellow is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon2 Base
@@ -70,7 +71,7 @@ beacon2.water_reflection = {
 }
 
 --beacon mk3 
-local beacon3 = util.table.deepcopy(data.raw["beacon"]["beacon"])
+local beacon3 = util.table.deepcopy(beacon_fake)
 beacon3.name = "beacon3"
 beacon3.module_specification.module_slots = 20
 beacon3.supply_area_distance = 14.2
@@ -81,6 +82,7 @@ beacon3.collision_box = {{-1.8, -1.8}, {1.8, 1.8}}
 beacon3.selection_box = {{-2, -2}, {2, 2}}
 beacon3.drawing_box = {{-2, -2}, {2, 2}}
 beacon3.energy_usage = "20MW"
+if beacon3.next_upgrade then beacon3.next_upgrade = nil end
 
 --the below is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon3 Base
@@ -143,8 +145,8 @@ local beacon = data.raw["beacon"]["beacon"]
 beacon.module_specification.module_slots = 8
 beacon.module_specification.module_info_max_icons_per_row = 4
 beacon.energy_usage = "350KW"
-beacon.collision_box = {{-1.3, -1.3}, {1.3, 1.3}}
-beacon.supply_area_distance = 3.2
+--beacon.collision_box = {{-1.3, -1.3}, {1.3, 1.3}}
+beacon.supply_area_distance = 4.5 - beacon.collision_box[2][1]
 
 if settings.startup["wret-overload-enable-notnotmelon-style"].value == true then
 	beacon.module_specification.module_slots = 4
@@ -153,10 +155,12 @@ if settings.startup["wret-overload-enable-notnotmelon-style"].value == true then
 end
 
 if settings.startup["wret-overload-enable-beaconmk2"].value == true then
+    beacon2.icons = data.raw["item"]["beacon2-item"].icons
 	data:extend{beacon2}
 end
 
 if settings.startup["wret-overload-enable-beaconmk3"].value == true then
+    beacon3.icons = data.raw["item"]["beacon3-item"].icons
 	data:extend{beacon3}
 end
 

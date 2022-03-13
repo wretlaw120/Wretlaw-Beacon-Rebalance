@@ -6,26 +6,35 @@
 -- See LICENSE.md in the project directory for license information.
 
 -- Technology icon
-local beacon_technology = data.raw.technology["effect-transmission"]
+
+local beacon_technology = util.table.deepcopy(data.raw.technology["effect-transmission"])
 beacon_technology.icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/technology/effect-transmission.png"
 beacon_technology.icon_size = 128
 beacon_technology.icon_mipmaps = nil
 
 -- Item icon
-local beacon_item = data.raw["item"]["beacon"]
-beacon_item.icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png"
+local beacon_item = util.table.deepcopy(data.raw["item"]["beacon"])
+if settings.startup["wret-overload-enable-beaconmk2"].value == true then
+  beacon_item.icon = nil
+  beacon_item.icons = {
+    {icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png", icon_size = 64, icon_mipmaps = 4},
+    {icon = "__wret-beacon-rebalance-mod__/graphics/icon/one.png", icon_size = 64, icon_mipmaps = 4, scale = .25, shift = {-8, 8}}
+  }
+else
+  beacon_item.icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png"
+end
 beacon_item.icon_size = 64
 beacon_item.icon_mipmaps = 4
 
 -- Entity icon
-local beacon = data.raw["beacon"]["beacon"]
-beacon.icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png"
-beacon.icon_size = 64
-beacon.icon_mipmaps = 4
+beacon_fake = util.table.deepcopy(data.raw["beacon"]["beacon"])
+beacon_fake.icon = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/icon/beacon.png"
+beacon_fake.icon_size = 64
+beacon_fake.icon_mipmaps = 4
 
 -- Restore old beacon sprites
-beacon.corpse = "medium-remnants"
-beacon.graphics_set = {
+beacon_fake.corpse = "medium-remnants"
+beacon_fake.graphics_set = {
     module_icons_suppressed = false,
 
     animation_list = {
@@ -88,7 +97,7 @@ beacon.graphics_set = {
 
 if settings.startup["classic-beacon-do-high-res"].value == true then
     -- Beacon Base
-    beacon.graphics_set.animation_list[1].animation.layers[1].hr_version = {
+    beacon_fake.graphics_set.animation_list[1].animation.layers[1].hr_version = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base.png",
         width = 232,
         height = 186,
@@ -96,7 +105,7 @@ if settings.startup["classic-beacon-do-high-res"].value == true then
         scale = 0.5,
     }
     -- Beacon Base Shadow
-    beacon.graphics_set.animation_list[1].animation.layers[2].hr_version = {
+    beacon_fake.graphics_set.animation_list[1].animation.layers[2].hr_version = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base-shadow.png",
         width = 232,
         height = 186,
@@ -105,7 +114,7 @@ if settings.startup["classic-beacon-do-high-res"].value == true then
         scale = 0.5,
     }
     -- Beacon Antenna Base
-    beacon.graphics_set.animation_list[2].animation.layers[1].hr_version = {
+    beacon_fake.graphics_set.animation_list[2].animation.layers[1].hr_version = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna.png",
         width = 108,
         height = 100,
@@ -116,7 +125,7 @@ if settings.startup["classic-beacon-do-high-res"].value == true then
         scale = 0.5,
     }
     -- Beacon Antenna Shadow
-    beacon.graphics_set.animation_list[2].animation.layers[2].hr_version = {
+    beacon_fake.graphics_set.animation_list[2].animation.layers[2].hr_version = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna-shadow.png",
         width = 126,
         height = 98,
@@ -129,7 +138,7 @@ if settings.startup["classic-beacon-do-high-res"].value == true then
     }
 end
 
-beacon.water_reflection = {
+beacon_fake.water_reflection = {
     pictures = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/beacon-reflection.png",
         priority = "extra-high",
@@ -145,7 +154,7 @@ beacon.water_reflection = {
 
 --below done by wretlaw120, copied from __base__, so that anything expecting module visualiztions (cough cough editor extensions) doesnt error
 
-	beacon.graphics_set.module_visualisations = {
+	beacon_fake.graphics_set.module_visualisations = {
       -- vanilla art style
       {
         art_style = "vanilla",
@@ -348,3 +357,9 @@ beacon.water_reflection = {
         }
       } -- end vanilla art style
     }
+
+    if not mods["bobmodules"] and not mods["reskins-bobs"] then
+      data.raw["beacon"]["beacon"] = beacon_fake
+      data.raw["item"]["beacon"] = beacon_item
+      data.raw["technology"]["effect-transmission"] = beacon_technology
+    end

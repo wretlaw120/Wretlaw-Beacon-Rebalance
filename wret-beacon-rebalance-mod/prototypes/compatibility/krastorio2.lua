@@ -1,4 +1,3 @@
---compat changes
 
 --K2 compatibility
 if mods["Krastorio2"] then
@@ -11,6 +10,7 @@ if mods["Krastorio2"] then
 	singularity_beacon.module_specification.module_info_icon_scale = .25
 	singularity_beacon.module_specification.module_info_multi_row_initial_height_modifier = -.5
 	singularity_beacon.supply_area_distance = singularity_beacon.supply_area_distance + .2
+	singularity_beacon.energy_usage = "800kW"
 	end
 	
 	if settings.startup["wret-overload-enable-beaconmk3"].value == true then
@@ -60,22 +60,4 @@ if mods["Krastorio2"] then
 			{"space-science-pack", 1},
 		}
 	end
-
-end
-
---FE+ compatibility
-if mods["FactorioExtended-Plus-Module"] then
-	
-	if settings.startup["wret-block-FE-beacons"].value then
-	data.raw["technology"]["effect-transmission-mk2"].enabled = false
-	data.raw["technology"]["effect-transmission-mk3"].enabled = false
-	end
-	
-	if settings.startup["wret-FE-beacons-modification"].value then
-		local beaconmk2 = data.raw["beacon"]["beacon-mk2"]
-		local beaconmk3 = data.raw["beacon"]["beacon-mk3"]
-		beaconmk2.module_specification.module_slots = 10
-		beaconmk3.module_specification.module_slots = 12
-	end
-	
 end

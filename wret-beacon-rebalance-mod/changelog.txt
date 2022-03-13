@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.10
+Date: 13. 03. 2022
+  Updates:
+    - SeaBlock/Bob's compatibility.
+    - Bob's beacons are disabled by default, but there's a setting which lets you turn them on. (they won't get removed from savegames which have already unlocked them.)
+    - If you do turn on Bob's beacons, there is also a setting to make them more in-line with Rebalance's, well, balance.
+    - Moved some files around and changed a bit of the mod structure to be a little less of a pain in the future.
+    - Changed power draw of K2's singularity beacon, to be in line with the other beacons. (power effeciency is in between beacon mk2 and beacon mk3)
+    - Also changed power draw of FE+ beacons for the same reasons.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.9
 Date: 18. 02. 2022
   Updates:

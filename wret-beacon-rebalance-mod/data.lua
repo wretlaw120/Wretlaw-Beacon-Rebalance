@@ -7,6 +7,10 @@ require("prototypes.item")
 require("prototypes.entity")
 require("prototypes.technology")
 
-if mods["Krastorio2"] or mods["FactorioExtended-Plus-Module"] then
-require("prototypes.compat")
+if mods["Krastorio2"] then
+	require("prototypes.compatibility.krastorio2")
+end
+
+if mods["FactorioExtended-Plus-Module"] then
+	require("prototypes.compatibility.FE_plus_modules")
 end
