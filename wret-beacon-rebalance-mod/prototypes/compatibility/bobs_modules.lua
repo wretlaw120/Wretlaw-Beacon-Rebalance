@@ -27,8 +27,8 @@ if settings.startup["wret-overload-enable-beaconmk2"].value == true then
 
     data.raw["recipe"]["beacon2-recipe"].ingredients = {{"beacon", 1}}
     for _, ingredient in pairs(data.raw["recipe"]["beacon-2"].ingredients) do
-        if not string.find(ingredient.name, "beacon") then
-            table.insert(data.raw["recipe"]["beacon2-recipe"].ingredients, {ingredient.name, ingredient.amount * cost_multiplier})
+        if not string.find((ingredient.name or ingredient[1]), "beacon") then
+            table.insert(data.raw["recipe"]["beacon2-recipe"].ingredients, {(ingredient.name or ingredient[1]), (ingredient.amount or ingredient[2]) * cost_multiplier})
         end
     end
     
@@ -38,8 +38,8 @@ if settings.startup["wret-overload-enable-beaconmk3"].value == true then
 
     data.raw["recipe"]["beacon3-recipe"].ingredients = {{"beacon2-item", 1}}
     for _, ingredient in pairs(data.raw["recipe"]["beacon-3"].ingredients) do
-        if not string.find(ingredient.name, "beacon") then
-            table.insert(data.raw["recipe"]["beacon3-recipe"].ingredients, {ingredient.name, ingredient.amount * cost_multiplier})
+        if not string.find((ingredient.name or ingredient[1]), "beacon") then
+            table.insert(data.raw["recipe"]["beacon3-recipe"].ingredients, {(ingredient.name or ingredient[1]), (ingredient.amount or ingredient[2]) * cost_multiplier})
         end
     end
 
