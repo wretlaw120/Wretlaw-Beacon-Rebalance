@@ -158,6 +158,7 @@ local function update_beacon_tiles(beacon, mode, limbo)
 
 			for marker_y = start_y, end_y do
 				if beacon_tiles[marker_x][marker_y] ~= nil then
+					if type(beacon_tiles[marker_x][marker_y]) == "number" then beacon_tiles[marker_x][marker_y] = {} end
 					for key, number in ipairs(beacon_tiles[marker_x][marker_y]) do
 						if number == beacon_number then
 							table.remove(beacon_tiles[marker_x][marker_y], key)

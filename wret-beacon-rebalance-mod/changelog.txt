@@ -1,5 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.0.9
+Version: 1.0.12
+Date: 28. 04. 2022
+  Updates:
+    - MFW when this is the 32453456234th bugfix that has to do with lua assigning 0 to an empty table value.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.11
 Date: 19. 03. 2022
   Updates:
     - Silly oversight in Bob's compatibility fixed.
