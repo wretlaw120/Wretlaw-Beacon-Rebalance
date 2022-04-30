@@ -358,8 +358,19 @@ beacon_fake.water_reflection = {
       } -- end vanilla art style
     }
 
-    if not mods["bobmodules"] and not mods["reskins-bobs"] then
-      data.raw["beacon"]["beacon"] = beacon_fake
-      data.raw["item"]["beacon"] = beacon_item
-      data.raw["technology"]["effect-transmission"] = beacon_technology
+    if not settings.startup["wret-overload-keep-vanilla-sprite-mk1"].value then
+      if not mods["bobmodules"] and not mods["reskins-bobs"] then
+        data.raw["beacon"]["beacon"] = beacon_fake
+        data.raw["item"]["beacon"] = beacon_item
+        data.raw["technology"]["effect-transmission"] = beacon_technology
+      end
+    else
+      if not mods["bobmodules"] and not mods["reskins-bobs"] then
+        beacon_dupe = table.deepcopy(data.raw["beacon"]["beacon"])
+        data.raw["beacon"]["beacon"].icons = {
+          {icon = beacon_dupe.icon, icon_size = 64, icon_mipmaps = 4},
+          {icon = "__wret-beacon-rebalance-mod__/graphics/icon/one.png", icon_size = 64, icon_mipmaps = 4, scale = .25, shift = {-8, 8}}
+        }
+        data.raw["beacon"]["beacon"].icon = nil
+      end
     end

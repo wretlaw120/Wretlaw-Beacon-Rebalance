@@ -16,7 +16,8 @@ if beacon2.next_upgrade then beacon2.next_upgrade = nil end
 
 --the bellow is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon2 Base
-    beacon2.graphics_set.animation_list[1].animation.layers[1].hr_version = {
+    beacon2.graphics_set.animation_list[1].animation.layers[1].hr_version = nil
+    beacon2.graphics_set.animation_list[1].animation.layers[1] = {
         filename = "__wret-beacon-rebalance-mod__/graphics/entity/beacon/beacon2-base.png",
         width = 232,
         height = 186,
@@ -24,7 +25,8 @@ if beacon2.next_upgrade then beacon2.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon2 Base Shadow
-    beacon2.graphics_set.animation_list[1].animation.layers[2].hr_version = {
+    beacon2.graphics_set.animation_list[1].animation.layers[2].hr_version = nil
+    beacon2.graphics_set.animation_list[1].animation.layers[2] = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base-shadow.png",
         width = 232,
         height = 186,
@@ -33,7 +35,8 @@ if beacon2.next_upgrade then beacon2.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon2 Antenna Base
-    beacon2.graphics_set.animation_list[2].animation.layers[1].hr_version = {
+    beacon2.graphics_set.animation_list[2].animation.layers[1].hr_version = nil
+    beacon2.graphics_set.animation_list[2].animation.layers[1] = {
         filename = "__wret-beacon-rebalance-mod__/graphics/entity/beacon/hr-beacon-antenna-green.png",
         width = 108,
         height = 100,
@@ -44,7 +47,8 @@ if beacon2.next_upgrade then beacon2.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon2 Antenna Shadow
-    beacon2.graphics_set.animation_list[2].animation.layers[2].hr_version = {
+    beacon2.graphics_set.animation_list[2].animation.layers[2].hr_version = nil
+    beacon2.graphics_set.animation_list[2].animation.layers[2] = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna-shadow.png",
         width = 126,
         height = 98,
@@ -86,7 +90,8 @@ if beacon3.next_upgrade then beacon3.next_upgrade = nil end
 
 --the below is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon3 Base
-    beacon3.graphics_set.animation_list[1].animation.layers[1].hr_version = {
+    beacon3.graphics_set.animation_list[1].animation.layers[1].hr_version = nil
+    beacon3.graphics_set.animation_list[1].animation.layers[1] = {
         filename = "__wret-beacon-rebalance-mod__/graphics/entity/beacon/beacon3-base.png",
         width = 232,
         height = 186,
@@ -94,7 +99,8 @@ if beacon3.next_upgrade then beacon3.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon3 Base Shadow
-    beacon3.graphics_set.animation_list[1].animation.layers[2].hr_version = {
+    beacon3.graphics_set.animation_list[1].animation.layers[2].hr_version = nil
+    beacon3.graphics_set.animation_list[1].animation.layers[2] = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-base-shadow.png",
         width = 232,
         height = 186,
@@ -103,7 +109,8 @@ if beacon3.next_upgrade then beacon3.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon3 Antenna Base
-    beacon3.graphics_set.animation_list[2].animation.layers[1].hr_version = {
+    beacon3.graphics_set.animation_list[2].animation.layers[1].hr_version = nil
+    beacon3.graphics_set.animation_list[2].animation.layers[1] = {
         filename = "__wret-beacon-rebalance-mod__/graphics/entity/beacon/hr-beacon-antenna-blue.png",
         width = 108,
         height = 100,
@@ -114,7 +121,8 @@ if beacon3.next_upgrade then beacon3.next_upgrade = nil end
         scale = 0.5*(4/3),
     }
     -- Beacon3 Antenna Shadow
-    beacon3.graphics_set.animation_list[2].animation.layers[2].hr_version = {
+    beacon3.graphics_set.animation_list[2].animation.layers[2].hr_version = nil
+    beacon3.graphics_set.animation_list[2].animation.layers[2] = {
         filename = "__wret-beacon-rebalance-mod__/classic_beacon_graphics/entity/beacon/hr-beacon-antenna-shadow.png",
         width = 126,
         height = 98,
