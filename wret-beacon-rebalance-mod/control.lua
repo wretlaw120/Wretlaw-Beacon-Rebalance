@@ -251,10 +251,10 @@ local function setup()
 	end
 
 	for _,force in pairs(game.forces) do
-		if force.technologies["effect-transmission-2"].researched then
+		if force.technologies["effect-transmission-2"] and force.technologies["effect-transmission-2"].researched then
 			force.recipes["beacon2-recipe"].enabled = true
 		end
-		if force.technologies["effect-transmission-3"].researched then
+		if force.technologies["effect-transmission-3"] and force.technologies["effect-transmission-3"].researched then
 			force.recipes["beacon3-recipe"].enabled = true
 		end
 	end
