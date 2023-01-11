@@ -30,7 +30,7 @@ data:extend({
 	{
 		type = "bool-setting",
 		name = "wret-overload-enable-lamp-tile-detection",
-		setting_type = "startup",
+		setting_type = "runtime-global",
 		default_value = false,
 		order = "zzzzz",
 	},

@@ -47,7 +47,8 @@ data:extend{
 		{"radar", 2}
 	},
 	result = "beacon2-item",
-	enabled = false
+	enabled = false,
+	energy_required = data.raw["recipe"]["beacon"].energy_required * 2,
 	}
 }
 end
@@ -69,7 +70,8 @@ data:extend{
 		{"substation", 2}
 	},
 	result = "beacon3-item",
-	enabled = false
+	enabled = false,
+	energy_required = data.raw["recipe"]["beacon"].energy_required * 4,
 	}
 }
 end

@@ -1,8 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.15
+Date: 11. 01. 2023
+  Bugfixes:
+    - Fix issue with overload script not looking at moved machines when using picker dollies.
+  Changes:
+    - Increased crafting time of beacons mk. 2 and 3
+---------------------------------------------------------------------------------------------------
 Version: 1.0.14
 Date: 17. 05. 2022
   Bugfixes:
-    - Fix issue with disabling beacons mk. 1 and mk. 2
+    - Fix issue with disabling beacons mk. 2 and mk. 3
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.13
 Date: 30. 04. 2022

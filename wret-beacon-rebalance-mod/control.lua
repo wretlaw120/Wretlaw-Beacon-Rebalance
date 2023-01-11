@@ -15,7 +15,7 @@ local function get_box(entity, range) --this function makes sure that any functi
 	
 end
 
-local function get_beaconable(machine) --this was a lot simpler when I thought machines needed module slots to be affceted by beacons
+local function get_beaconable(machine) --this was a lot simpler when I thought machines needed module slots to be affected by beacons
 
 	if machine.type == "beacon" then return false end
 
@@ -200,7 +200,7 @@ local function on_built(event)
 	end
 	
 	--the following is for testing the tiles underneath the placed lamp
-	if entity.type == "lamp" and settings.startup["wret-overload-enable-lamp-tile-detection"].value == true then
+	if entity.type == "lamp" and settings.global["wret-overload-enable-lamp-tile-detection"].value == true then
 		local beacon_tiles = global.beacon_tiles[surface_name] or {}
 		global.beacon_tiles[surface_name] = beacon_tiles
 		local marker_x, marker_y = get_box(entity)
@@ -226,9 +226,12 @@ end
 
 local function picker_dolly_move(event)
 
-	if event.moved_entity.prototype.type ~= "beacon" then return end
+	if event.moved_entity.prototype.type == "beacon" then
+		update_beacon_tiles(event.moved_entity, "dolly-add", update_beacon_tiles(event.moved_entity, "dolly-remove")) --lol
+		return
+	end
 
-	update_beacon_tiles(event.moved_entity, "dolly-add", update_beacon_tiles(event.moved_entity, "dolly-remove")) --lol
+	detect_overload(event.moved_entity)
 
 end
 
@@ -287,3 +290,84 @@ script.on_event(defines.events.on_player_mined_entity, on_destroyed, filter)
 script.on_event(defines.events.on_robot_mined_entity, on_destroyed, filter)
 script.on_event(defines.events.on_entity_died, on_destroyed, filter)
 script.on_event(defines.events.script_raised_destroy, on_destroyed, filter)
+
+--[[
+
+ive tried but i just dont think that this system can work with area cloning 
+
+local function on_area_clone(event)
+	game.print("skadoosh")
+	local biggest_beacon_radius = 35
+	--if event.clone_entities ~= true then return end
+	log(serpent.block(event))
+	--game.print(serpent.block(event.destination_area))
+	--game.print(serpent.block(event.source_area))
+	local new_destination_area = {
+		{event.destination_area.left_top.x - biggest_beacon_radius, event.destination_area.left_top.y - biggest_beacon_radius},
+		{event.destination_area.right_bottom.x + biggest_beacon_radius, event.destination_area.right_bottom.y + biggest_beacon_radius}
+	}
+	local destination_beacons = event.destination_surface.find_entities_filtered({
+		area = event.destination_area,
+		type = "beacon",
+	})
+	local source_beacons = event.source_surface.find_entities_filtered({
+		area = event.source_area,
+		type = "beacon",
+	})
+	local destination_entities = event.destination_surface.find_entities_filtered({
+		area = new_destination_area,
+		type = "beacon",
+	})
+	
+	--game.print(#destination_entities)
+	local beacon_list = {}
+	for _,beacon in pairs(destination_beacons) do
+		--if not beacon.valid then game.print(beacon.valid) end
+		update_beacon_tiles(beacon, "add")
+		table.insert(beacon_list, beacon.unit_number)
+	end
+	game.print(serpent.block(beacon_list))
+	log(serpent.block(beacon_list))
+
+
+	local surface_name = event.destination_surface.name
+	local beacon_tiles = global.beacon_tiles[surface_name] or {}
+	global.beacon_tiles[surface_name] = beacon_tiles
+
+	for marker_x = event.destination_area.left_top.x - biggest_beacon_radius, event.destination_area.right_bottom.x + biggest_beacon_radius do
+		if beacon_tiles[marker_x] == nil then
+			beacon_tiles[marker_x] = {marker_x}
+		end
+
+		for marker_y = event.destination_area.left_top.y - biggest_beacon_radius, event.destination_area.right_bottom.y + biggest_beacon_radius do
+			if beacon_tiles[marker_x][marker_y] ~= nil then
+				if type(beacon_tiles[marker_x][marker_y]) == "number" then beacon_tiles[marker_x][marker_y] = {} end
+				for key, number in ipairs(beacon_tiles[marker_x][marker_y]) do
+					local still_exists = false
+					--log(serpent.block(beacon_list))
+					--log(serpent.block(beacon_tiles[marker_x][marker_y]))
+					for key_2, beacon_number in ipairs(beacon_list) do
+						if number == beacon_number then 
+							still_exists = true 
+							game.print("asd2") 
+							log(serpent.block(number))
+						end
+						--game.print("asd")
+					end
+					if not still_exists then 
+						log(serpent.block(beacon_tiles[marker_x][marker_y][key])) 
+						beacon_tiles[marker_x][marker_y][key] = nil
+					end
+				end
+			end
+		end
+	end
+
+	for _,entity in pairs(destination_entities) do 
+		detect_overload(entity)
+	end
+
+end
+
+script.on_event(defines.events.on_area_cloned, on_area_clone)
+script.on_event(defines.events.on_brush_cloned, on_area_clone)--]]
