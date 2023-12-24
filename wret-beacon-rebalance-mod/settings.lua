@@ -1,6 +1,13 @@
 data:extend({
 	{
 		type = "bool-setting",
+		name = "wret-overload-beacons",
+		setting_type = "startup",
+		default_value = true,
+		order = "0",
+	},
+	{
+		type = "bool-setting",
 		name = "wret-overload-keep-vanilla-sprite-mk1",
 		setting_type = "startup",
 		default_value = false,
