@@ -107,7 +107,8 @@ local function detect_overload(machine)
 end
 
 local function update_beacon_tiles(beacon, mode, limbo)
-	
+	if not settings.startup["wret-overload-beacons"].value then return end
+
 	local range = beacon.prototype.supply_area_distance
 	local start_x, start_y, end_x, end_y = get_box(beacon, range)
 	local surface = beacon.surface
@@ -188,7 +189,8 @@ local function update_beacon_tiles(beacon, mode, limbo)
 end
 
 local function on_built(event)
-	
+	if not settings.startup["wret-overload-beacons"].value then return end
+
 	if not event.created_entity and not event.entity then return end
 	local entity = event.created_entity or event.entity
 	local surface = entity.surface
@@ -225,6 +227,7 @@ local function on_built(event)
 end
 
 local function picker_dolly_move(event)
+	if not settings.startup["wret-overload-beacons"].value then return end
 
 	if event.moved_entity.prototype.type == "beacon" then
 		update_beacon_tiles(event.moved_entity, "dolly-add", update_beacon_tiles(event.moved_entity, "dolly-remove")) --lol
@@ -249,7 +252,21 @@ local function setup()
 	
 	for _, surface in pairs(game.surfaces) do
 		for _, beacon in ipairs(surface.find_entities_filtered{type="beacon"}) do
-			update_beacon_tiles(beacon, "add")
+            if settings.startup["wret-overload-beacons"].value then
+                update_beacon_tiles(beacon, "add")
+            else
+                local machine_number = beacon.unit_number
+                if global.overloaded_machines[machine_number] ~= nil then --if the machine is in a state where it should not be overloaded, this part fixes that
+                    surface.create_entity{
+                        name = "flying-text",
+                        position = machine.position,
+                        text = {"beacon-overload-ended"}
+                    }
+                    machine.active = true
+                    rendering.destroy(global.overloaded_machines[machine_number][2])
+                    global.overloaded_machines[machine_number] = nil
+                end
+        end
 		end
 	end
 
@@ -277,12 +294,13 @@ script.on_event(defines.events.script_raised_built, on_built)
 script.on_event(defines.events.script_raised_revive, on_built)
 
 local function on_destroyed(event)
+    if not settings.startup["wret-overload-beacons"].value then return end
+
 	local entity = event.entity
 	
 	if entity.type == "beacon" then
 		update_beacon_tiles(entity, "remove")
 	end
-	
 end
 
 local filter = {{filter = "type", type = "beacon"}}
