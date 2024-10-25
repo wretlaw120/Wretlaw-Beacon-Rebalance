@@ -1,24 +1,31 @@
 data:extend({
 	{
 		type = "bool-setting",
-		name = "wret-overload-keep-vanilla-sprite-mk1",
-		setting_type = "startup",
-		default_value = false,
-		order = "a0",
-	},
-	{
-		type = "bool-setting",
-		name = "wret-overload-enable-beaconmk2",
+		name = "wret-overload-disable-overloaded",
 		setting_type = "startup",
 		default_value = true,
 		order = "a1",
 	},
 	{
 		type = "bool-setting",
+		name = "wret-overload-keep-vanilla-sprite-mk1",
+		setting_type = "startup",
+		default_value = false,
+		order = "a2",
+	},
+	{
+		type = "bool-setting",
+		name = "wret-overload-enable-beaconmk2",
+		setting_type = "startup",
+		default_value = true,
+		order = "a3",
+	},
+	{
+		type = "bool-setting",
 		name = "wret-overload-enable-beaconmk3",
 		setting_type = "startup",
 		default_value = true,
-		order = "a2",
+		order = "a4",
 	},
 	{
 		type = "bool-setting",

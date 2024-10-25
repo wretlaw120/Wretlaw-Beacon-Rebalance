@@ -2,19 +2,29 @@
 
 --beacon mk2
 local beacon2 = util.table.deepcopy(beacon_fake)
-beacon2.name = "beacon2"
-beacon2.module_specification.module_slots = 15
-beacon2.supply_area_distance = 14.2
-beacon2.module_specification.module_info_max_icons_per_row = 5
-beacon2.module_specification.module_info_max_icon_rows = 3
-beacon2.minable.result = "beacon2-item"
+beacon2.name = "wr-beacon-2"
+beacon2.module_slots = 15
+beacon2.supply_area_distance = 14
+--beacon2.module_specification.module_info_max_icons_per_row = 5
+--beacon2.module_specification.module_info_max_icon_rows = 3
+beacon2.icons_positioning = {{
+    inventory_index = defines.inventory.beacon_modules,
+    max_icons_per_row = 5,
+    scale = .5,
+    separation_multiplier = 1.1,
+    multi_row_initial_height_modifier = -.3
+}}
+beacon2.minable.results = {{type = "item", name = "wr-beacon-2", amount = 1}}
 beacon2.collision_box = {{-1.8, -1.8}, {1.8, 1.8}}
 beacon2.selection_box = {{-2, -2}, {2, 2}}
 beacon2.drawing_box = {{-2, -2}, {2, 2}}
 beacon2.energy_usage = "12MW"
 if beacon2.next_upgrade then beacon2.next_upgrade = nil end
+beacon2.profile = {1,0}
+beacon2.distribution_effectivity = 1
+beacon2.beacon_counter = "total"
 
---the bellow is basically copied straight from the Classic Beacon mod by Kirazy. 
+--the below is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon2 Base
     beacon2.graphics_set.animation_list[1].animation.layers[1].hr_version = nil
     beacon2.graphics_set.animation_list[1].animation.layers[1] = {
@@ -76,17 +86,27 @@ beacon2.water_reflection = {
 
 --beacon mk3 
 local beacon3 = util.table.deepcopy(beacon_fake)
-beacon3.name = "beacon3"
-beacon3.module_specification.module_slots = 20
-beacon3.supply_area_distance = 14.2
-beacon3.module_specification.module_info_max_icons_per_row = 5
-beacon3.module_specification.module_info_max_icon_rows = 4
-beacon3.minable.result = "beacon3-item"
+beacon3.name = "wr-beacon-3"
+beacon3.module_slots = 20
+beacon3.supply_area_distance = 14
+--beacon3.module_specification.module_info_max_icons_per_row = 5
+--beacon3.module_specification.module_info_max_icon_rows = 4
+beacon3.icons_positioning = {{
+    inventory_index = defines.inventory.beacon_modules,
+    max_icons_per_row = 5,
+    scale = .5,
+    separation_multiplier = 1.1,
+    multi_row_initial_height_modifier = (-1.3-.3)/2 - .05
+}}
+beacon3.minable.results = {{type = "item", name = "wr-beacon-3", amount = 1}}
 beacon3.collision_box = {{-1.8, -1.8}, {1.8, 1.8}}
 beacon3.selection_box = {{-2, -2}, {2, 2}}
 beacon3.drawing_box = {{-2, -2}, {2, 2}}
 beacon3.energy_usage = "20MW"
 if beacon3.next_upgrade then beacon3.next_upgrade = nil end
+beacon3.profile = {1,0}
+beacon3.distribution_effectivity = 1
+beacon3.beacon_counter = "total"
 
 --the below is basically copied straight from the Classic Beacon mod by Kirazy. 
     -- Beacon3 Base
@@ -150,11 +170,21 @@ beacon3.water_reflection = {
 
 --beacon mk1 (put last so it doesnt interfere with the others)
 local beacon = data.raw["beacon"]["beacon"]
-beacon.module_specification.module_slots = 8
-beacon.module_specification.module_info_max_icons_per_row = 4
-beacon.energy_usage = "350KW"
+beacon.module_slots = 8
+--beacon.module_specification.module_info_max_icons_per_row = 4
+beacon.energy_usage = "350kW"
 --beacon.collision_box = {{-1.3, -1.3}, {1.3, 1.3}}
-beacon.supply_area_distance = 4.5 - beacon.collision_box[2][1]
+beacon.supply_area_distance = 3
+beacon.icons_positioning = {{
+    inventory_index = defines.inventory.beacon_modules,
+    max_icons_per_row = 4,
+    scale = .5,
+    separation_multiplier = 1.1,
+    multi_row_initial_height_modifier = -.3
+}}
+beacon.profile = {1,0}
+beacon.distribution_effectivity = 1
+beacon.beacon_counter = "total"
 
 if settings.startup["wret-overload-enable-notnotmelon-style"].value == true then
 	beacon.module_specification.module_slots = 4
@@ -163,18 +193,18 @@ if settings.startup["wret-overload-enable-notnotmelon-style"].value == true then
 end
 
 if settings.startup["wret-overload-enable-beaconmk2"].value == true then
-    beacon2.icons = data.raw["item"]["beacon2-item"].icons
+    beacon2.icons = data.raw["item"]["wr-beacon-2"].icons
 	data:extend{beacon2}
 end
 
 if settings.startup["wret-overload-enable-beaconmk3"].value == true then
-    beacon3.icons = data.raw["item"]["beacon3-item"].icons
+    beacon3.icons = data.raw["item"]["wr-beacon-3"].icons
 	data:extend{beacon3}
 end
 
 data:extend{
 	beacon,
-	
+
 		--the beacon overload sprite
 	{
 		type = 'sprite',

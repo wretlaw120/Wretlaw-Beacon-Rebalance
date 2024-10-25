@@ -1,5 +1,168 @@
 --wretlaw120 edition
 
+local function disable(entity)
+	entity.active = false
+	local overloaded_machines = storage.overloaded_machines or {}
+	storage.overloaded_machines = overloaded_machines
+	if storage.overloaded_machines[entity.unit_number] then return end
+	storage.overloaded_machines[entity.unit_number] = {
+		entity, rendering.draw_sprite{
+			sprite = "beacon-overload",
+			x_scale = 0.5,
+			y_scale = 0.5,
+			target = entity,
+			surface = entity.surface
+		}
+	}
+end
+
+local function enable(entity)
+	local overloaded_machines = storage.overloaded_machines or {}
+	storage.overloaded_machines = overloaded_machines
+	if storage.overloaded_machines[entity.unit_number] then
+		if storage.overloaded_machines[entity.unit_number][2] 
+		and storage.overloaded_machines[entity.unit_number][2].valid then
+			storage.overloaded_machines[entity.unit_number][2].destroy()
+		end
+		entity.active = true
+		storage.overloaded_machines[entity.unit_number] = nil
+	end
+end
+
+if settings.startup["wret-overload-disable-overloaded"].value == false then
+	local overloaded_machines = storage.overloaded_machines or {}
+	storage.overloaded_machines = overloaded_machines
+	for _,v in pairs(overloaded_machines) do
+		if v[1].valid then enable(v[1]) end
+	end
+return end
+
+local filter_build = {{filter = "type", type = "beacon"},
+	{filter = "type", type = "assembling-machine", mode = "or"},
+	{filter = "type", type = "furnace", mode = "or"},
+	{filter = "type", type = "rocket-silo", mode = "or"},
+}
+local filter_destroy = {{filter = "type", type = "beacon"}}
+
+local function on_built_beacon_or_machine(eventdata)
+	if eventdata.entity.type == "beacon" then
+		local entities_to_check = eventdata.entity.get_beacon_effect_receivers()
+		for _,ent in pairs(entities_to_check) do
+			if ent.get_beacons()[2] then
+				disable(ent)
+			end
+		end
+	else --is crafting machine
+		if eventdata.entity.get_beacons()[2] then
+			disable(eventdata.entity)
+		end
+	end
+end
+
+local function on_destroyed_beacon_or_machine(eventdata)
+	if eventdata.entity.type == "beacon" then
+		local entities_to_check = eventdata.entity.get_beacon_effect_receivers()
+		for _,ent in pairs(entities_to_check) do
+			if ent.get_beacons()[3] then
+				--disable(ent)
+			else --2 or fewer beacons, and one of those is currently being destroyed
+				enable(ent)
+			end
+		end
+	else --is crafting machine
+		enable(eventdata.entity)
+	end
+end
+
+script.on_event(defines.events.on_built_entity, on_built_beacon_or_machine, filter_build)
+script.on_event(defines.events.on_robot_built_entity, on_built_beacon_or_machine, filter_build)
+script.on_event(defines.events.on_entity_cloned, on_built_beacon_or_machine, filter_build)
+script.on_event(defines.events.script_raised_built, on_built_beacon_or_machine, filter_build)
+script.on_event(defines.events.script_raised_revive, on_built_beacon_or_machine, filter_build)
+script.on_event(defines.events.on_space_platform_built_entity, on_built_beacon_or_machine, filter_build)
+
+script.on_event(defines.events.on_player_mined_entity, on_destroyed_beacon_or_machine, filter_destroy)
+script.on_event(defines.events.on_robot_mined_entity, on_destroyed_beacon_or_machine, filter_destroy)
+script.on_event(defines.events.on_entity_died, on_destroyed_beacon_or_machine, filter_destroy)
+script.on_event(defines.events.script_raised_destroy, on_destroyed_beacon_or_machine, filter_destroy)
+script.on_event(defines.events.on_space_platform_mined_entity, on_destroyed_beacon_or_machine, filter_destroy)
+
+local function picker_dolly_move(event)
+
+	game.print("bruh")
+	if event.moved_entity.type == "beacon" then
+		local e = event.moved_entity
+		local bb = event.moved_entity.bounding_box
+		local mr = prototypes.max_beacon_supply_area_distance
+		local entities_to_check = e.surface.find_entities_filtered({area = {
+			{bb.left_top.x - 1 - mr, bb.left_top.y - 1 - mr},
+			{bb.right_bottom.x + 1 + mr, bb.right_bottom.y + 1 + mr}}
+		})
+		for _,ent in pairs(entities_to_check) do
+			if ent.get_beacons()[2] then
+				disable(ent)
+			else
+				enable(ent)
+			end
+		end
+		return
+	end
+
+	if event.moved_entity.get_beacons then
+		if event.moved_entity.get_beacons()[2] then
+			disable(event.moved_entity)
+			return
+		else
+			enable(event.moved_entity)
+			return
+		end
+	end
+
+end
+
+local function on_load_setup()
+
+	--if remote.interfaces["PickerDollies"] and remote.interfaces["PickerDollies"]["dolly_moved_entity_id"] then
+	--	script.on_event(remote.call("PickerDollies", "dolly_moved_entity_id"), picker_dolly_move)
+	--end
+	--if remote.interfaces["picker-dollies"] and remote.interfaces["picker-dollies"]["dolly_moved_entity_id"] then
+	--	script.on_event(remote.call("picker-dollies", "dolly_moved_entity_id"), picker_dolly_move)
+	--end
+
+end
+
+local function setup()
+
+	storage.beacon_tiles = {}
+
+	for _, surface in pairs(game.surfaces) do
+		for _, beacon in pairs(surface.find_entities_filtered{type="beacon"}) do
+			on_built_beacon_or_machine{entity = beacon}
+		end
+	end
+
+	for _,force in pairs(game.forces) do
+		if force.technologies["effect-transmission-2"] and force.technologies["effect-transmission-2"].researched then
+			force.recipes["wr-beacon-2"].enabled = true
+		end
+		if force.technologies["effect-transmission-3"] and force.technologies["effect-transmission-3"].researched then
+			force.recipes["wr-beacon-3"].enabled = true
+		end
+	end
+
+	on_load_setup()
+
+end
+
+script.on_init(setup)
+script.on_load(on_load_setup)
+script.on_configuration_changed(setup)
+
+--script.on_init(setup)
+--script.on_load(on_load_setup)
+--script.on_configuration_changed(setup)
+
+--[[
 local function get_box(entity, range) --this function makes sure that any function working with area uses every tile they have any presence in.
 	
 	if range == nil then range = 0 end
@@ -42,21 +205,21 @@ local function detect_overload(machine)
 	local start_x, start_y, end_x, end_y = get_box(machine)
 	local surface = machine.surface
 	local surface_name = machine.surface.name
-	local beacon_tiles = global.beacon_tiles[surface_name] or {}
-	global.beacon_tiles[surface_name] = beacon_tiles
-	local overloaded_machines = global.overloaded_machines or {}
-	global.overloaded_machines = overloaded_machines
+	local beacon_tiles = storage.beacon_tiles[surface_name] or {}
+	storage.beacon_tiles[surface_name] = beacon_tiles
+	local overloaded_machines = storage.overloaded_machines or {}
+	storage.overloaded_machines = overloaded_machines
 	local machine_number = machine.unit_number
 	
 	local function disable_machine() --function that disables the machines, adds floating text, warning label, and adds the machine to list a of disabled machines
-		if global.overloaded_machines[machine_number] == nil then
+		if storage.overloaded_machines[machine_number] == nil then
 			surface.create_entity{
 				name = "flying-text",
 				position = machine.position,
 				text = {"beacon-overload"}
 			}
 			machine.active = false
-			global.overloaded_machines[machine_number] = {
+			storage.overloaded_machines[machine_number] = {
 				machine, rendering.draw_sprite{
 					sprite = "beacon-overload",
 					x_scale = 0.5,
@@ -93,15 +256,15 @@ local function detect_overload(machine)
 		end
 	end
 	
-	if global.overloaded_machines[machine_number] ~= nil then --if the machine is in a state where it should not be overloaded, this part fixes that
+	if storage.overloaded_machines[machine_number] ~= nil then --if the machine is in a state where it should not be overloaded, this part fixes that
 		surface.create_entity{
 			name = "flying-text",
 			position = machine.position,
 			text = {"beacon-overload-ended"}
 		}
 		machine.active = true
-		rendering.destroy(global.overloaded_machines[machine_number][2])
-		global.overloaded_machines[machine_number] = nil
+		rendering.destroy(storage.overloaded_machines[machine_number][2])
+		storage.overloaded_machines[machine_number] = nil
 	end
 	
 end
@@ -112,8 +275,8 @@ local function update_beacon_tiles(beacon, mode, limbo)
 	local start_x, start_y, end_x, end_y = get_box(beacon, range)
 	local surface = beacon.surface
 	local surface_name = surface.name
-	local beacon_tiles = global.beacon_tiles[surface_name] or {}
-	global.beacon_tiles[surface_name] = beacon_tiles
+	local beacon_tiles = storage.beacon_tiles[surface_name] or {}
+	storage.beacon_tiles[surface_name] = beacon_tiles
 	local dolly_limbo = {}
 	local beacon_number = beacon.unit_number
 	local overload_mode = "normal"
@@ -201,8 +364,8 @@ local function on_built(event)
 	
 	--the following is for testing the tiles underneath the placed lamp
 	if entity.type == "lamp" and settings.global["wret-overload-enable-lamp-tile-detection"].value == true then
-		local beacon_tiles = global.beacon_tiles[surface_name] or {}
-		global.beacon_tiles[surface_name] = beacon_tiles
+		local beacon_tiles = storage.beacon_tiles[surface_name] or {}
+		storage.beacon_tiles[surface_name] = beacon_tiles
 		local marker_x, marker_y = get_box(entity)
 		if beacon_tiles[marker_x] ~= nil and beacon_tiles[marker_x][marker_y] ~= nil then
 			if #beacon_tiles[marker_x][marker_y] > 0 then
@@ -245,7 +408,7 @@ end
 
 local function setup()
 	
-	global.beacon_tiles = {}
+	storage.beacon_tiles = {}
 	
 	for _, surface in pairs(game.surfaces) do
 		for _, beacon in ipairs(surface.find_entities_filtered{type="beacon"}) do
@@ -255,10 +418,10 @@ local function setup()
 
 	for _,force in pairs(game.forces) do
 		if force.technologies["effect-transmission-2"] and force.technologies["effect-transmission-2"].researched then
-			force.recipes["beacon2-recipe"].enabled = true
+			force.recipes["wr-beacon-2-recipe"].enabled = true
 		end
 		if force.technologies["effect-transmission-3"] and force.technologies["effect-transmission-3"].researched then
-			force.recipes["beacon3-recipe"].enabled = true
+			force.recipes["wr-beacon-3-recipe"].enabled = true
 		end
 	end
 
@@ -331,8 +494,8 @@ local function on_area_clone(event)
 
 
 	local surface_name = event.destination_surface.name
-	local beacon_tiles = global.beacon_tiles[surface_name] or {}
-	global.beacon_tiles[surface_name] = beacon_tiles
+	local beacon_tiles = storage.beacon_tiles[surface_name] or {}
+	storage.beacon_tiles[surface_name] = beacon_tiles
 
 	for marker_x = event.destination_area.left_top.x - biggest_beacon_radius, event.destination_area.right_bottom.x + biggest_beacon_radius do
 		if beacon_tiles[marker_x] == nil then

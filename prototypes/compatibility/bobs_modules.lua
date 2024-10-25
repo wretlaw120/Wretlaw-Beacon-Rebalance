@@ -25,10 +25,10 @@ local cost_multiplier = 5 -- I'm not familiar with bob's mods so i'll just multi
 
 if settings.startup["wret-overload-enable-beaconmk2"].value == true then
 
-    data.raw["recipe"]["beacon2-recipe"].ingredients = {{"beacon", 1}}
+    data.raw["recipe"]["wr-beacon-2"].ingredients = {{"beacon", 1}}
     for _, ingredient in pairs(data.raw["recipe"]["beacon-2"].ingredients) do
         if not string.find((ingredient.name or ingredient[1]), "beacon") then
-            table.insert(data.raw["recipe"]["beacon2-recipe"].ingredients, {(ingredient.name or ingredient[1]), (ingredient.amount or ingredient[2]) * cost_multiplier})
+            table.insert(data.raw["recipe"]["wr-beacon-2"].ingredients, {type = ingredient.type, ingredient.name, ingredient.amount * cost_multiplier})
         end
     end
     
@@ -36,10 +36,10 @@ end
 
 if settings.startup["wret-overload-enable-beaconmk3"].value == true then
 
-    data.raw["recipe"]["beacon3-recipe"].ingredients = {{"beacon2-item", 1}}
-    for _, ingredient in pairs(data.raw["recipe"]["beacon-3"].ingredients) do
+    data.raw["recipe"]["wr-beacon-3"].ingredients = {{"wr-beacon-2", 1}}
+    for _, ingredient in pairs(data.raw["recipe"]["wr-beacon-2"].ingredients) do
         if not string.find((ingredient.name or ingredient[1]), "beacon") then
-            table.insert(data.raw["recipe"]["beacon3-recipe"].ingredients, {(ingredient.name or ingredient[1]), (ingredient.amount or ingredient[2]) * cost_multiplier})
+            table.insert(data.raw["recipe"]["wr-beacon-3"].ingredients, {type = ingredient.type, ingredient.name, ingredient.amount * cost_multiplier})
         end
     end
 

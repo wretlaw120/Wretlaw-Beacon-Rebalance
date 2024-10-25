@@ -25,7 +25,7 @@ if (not mods["bobmodules"]) or settings.startup["wret-block-bob"].value then
 			},
 			prerequisites = {"effect-transmission", "utility-science-pack"},
 			effects = {
-				{type = "unlock-recipe", recipe = "beacon2-recipe"},
+				{type = "unlock-recipe", recipe = "wr-beacon-2"},
 			},
 			},
 		}
@@ -54,7 +54,7 @@ if (not mods["bobmodules"]) or settings.startup["wret-block-bob"].value then
 			},
 			prerequisites = {"effect-transmission-2", "space-science-pack", "electric-energy-distribution-2"},
 			effects = {
-				{type = "unlock-recipe", recipe = "beacon3-recipe"}
+				{type = "unlock-recipe", recipe = "wr-beacon-3"}
 			},
 		}
 		}
@@ -63,10 +63,10 @@ if (not mods["bobmodules"]) or settings.startup["wret-block-bob"].value then
 else
 
 	if settings.startup["wret-overload-enable-beaconmk2"].value == true then 
-		table.insert(data.raw["technology"]["effect-transmission-2"].effects, {type = "unlock-recipe", recipe = "beacon2-recipe"}) 
+		table.insert(data.raw["technology"]["effect-transmission-2"].effects, {type = "unlock-recipe", recipe = "wr-beacon-2"}) 
 	end
 	if settings.startup["wret-overload-enable-beaconmk3"].value == true then 
-		table.insert(data.raw["technology"]["effect-transmission-3"].effects, {type = "unlock-recipe", recipe = "beacon3-recipe"}) 
+		table.insert(data.raw["technology"]["effect-transmission-3"].effects, {type = "unlock-recipe", recipe = "wr-beacon-3"}) 
 	end
 	
 end

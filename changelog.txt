@@ -1,4 +1,24 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.2
+Date: 25. 10. 2024
+  Changes:
+    - Added better space age compatibilty.
+    - Added Russian locale (credit: eugenikus8).
+    - Tried Even Pickier Dollies compact but it seems broken on their end.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+Date: 22. 10. 2024
+  Changes:
+    - Changed the overload setting to default on, to prevent confusion.
+  Bugfixes:
+    - Fix mispelt property causing beacons of different types to not disable eachother.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.0
+Date: 22. 10. 2024
+  Changes:
+    - Update for Factorio 2.0
+    - Space Age compatibility patch soon (tm).
+---------------------------------------------------------------------------------------------------
 Version: 1.0.15
 Date: 11. 01. 2023
   Bugfixes:

@@ -2,8 +2,8 @@
 
 --beacon mk2
 local beacon2 = util.table.deepcopy(data.raw["item"]["beacon"])
-beacon2.name = "beacon2-item"
-beacon2.place_result = "beacon2"
+beacon2.name = "wr-beacon-2"
+beacon2.place_result = "wr-beacon-2"
 beacon2.order = "a[beacon]-z2"
 beacon2.icon = nil
 beacon2.icons = {
@@ -13,8 +13,8 @@ beacon2.icons = {
 
 --beacon mk3
 local beacon3 = util.table.deepcopy(data.raw["item"]["beacon"])
-beacon3.name = "beacon3-item"
-beacon3.place_result = "beacon3"
+beacon3.name = "wr-beacon-3"
+beacon3.place_result = "wr-beacon-3"
 beacon3.order = "a[beacon]-z3"
 beacon3.icon = nil
 beacon3.icons = {
@@ -36,17 +36,17 @@ data:extend{
 	beacon2,
 	
 	{
-	name = "beacon2-recipe",
+	name = "wr-beacon-2",
 	type = "recipe",
 	category = "crafting",
 	ingredients = {
-		{"beacon", 1},
-		{"steel-plate", 20},
-		{"processing-unit", 20},
-		{"copper-cable", 20},
-		{"radar", 2}
+		{type = "item", name = "beacon", amount = 1},
+		{type = "item", name = "steel-plate", amount = 20},
+		{type = "item", name = "processing-unit", amount = 20},
+		{type = "item", name = "copper-cable", amount = 20},
+		{type = "item", name = "radar", amount = 2}
 	},
-	result = "beacon2-item",
+	results = {{type = "item", name = "wr-beacon-2", amount = 1}},
 	enabled = false,
 	energy_required = data.raw["recipe"]["beacon"].energy_required * 2,
 	}
@@ -58,18 +58,18 @@ data:extend{
 	beacon3,
 	
 	{
-	name = "beacon3-recipe",
+	name = "wr-beacon-3",
 	type = "recipe",
 	category = "crafting",
 	ingredients = {
-		{"beacon2-item", 1},
-		{"low-density-structure", 20},
-		{"rocket-control-unit", 20},
-		{"copper-cable", 30},
-		{"accumulator", 2},
-		{"substation", 2}
+		{type = "item", name = "wr-beacon-2", amount = 1},
+		{type = "item", name = "low-density-structure", amount = 20},
+		{type = "item", name = "processing-unit", amount = 40},
+		{type = "item", name = "copper-cable", amount = 30},
+		{type = "item", name = "accumulator", amount = 2},
+		{type = "item", name = "substation", amount = 2}
 	},
-	result = "beacon3-item",
+	results = {{type = "item", name = "wr-beacon-3", amount = 1}},
 	enabled = false,
 	energy_required = data.raw["recipe"]["beacon"].energy_required * 4,
 	}

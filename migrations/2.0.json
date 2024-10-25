@@ -1,0 +1,17 @@
+{
+    "entity":
+    [
+        ["beacon2", "wr-beacon-2"],
+        ["beacon3", "wr-beacon-3"]
+    ],
+    "recipe":
+    [
+        ["beacon2-recipe", "wr-beacon-2"],
+        ["beacon3-recipe", "wr-beacon-3"]
+    ],
+    "item":
+    [
+        ["beacon2-item", "wr-beacon-2"],
+        ["beacon3-item", "wr-beacon-3"]
+    ]
+}
