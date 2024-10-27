@@ -1,5 +1,7 @@
 --beacon mk1 at end
 
+local beacon_profile = settings.startup["wret-overload-disable-overloaded"].value and {1,1} or {1,0}
+
 --beacon mk2
 local beacon2 = util.table.deepcopy(beacon_fake)
 beacon2.name = "wr-beacon-2"
@@ -20,7 +22,7 @@ beacon2.selection_box = {{-2, -2}, {2, 2}}
 beacon2.drawing_box = {{-2, -2}, {2, 2}}
 beacon2.energy_usage = "12MW"
 if beacon2.next_upgrade then beacon2.next_upgrade = nil end
-beacon2.profile = {1,0}
+beacon2.profile = beacon_profile
 beacon2.distribution_effectivity = 1
 beacon2.beacon_counter = "total"
 
@@ -104,7 +106,7 @@ beacon3.selection_box = {{-2, -2}, {2, 2}}
 beacon3.drawing_box = {{-2, -2}, {2, 2}}
 beacon3.energy_usage = "20MW"
 if beacon3.next_upgrade then beacon3.next_upgrade = nil end
-beacon3.profile = {1,0}
+beacon3.profile = beacon_profile
 beacon3.distribution_effectivity = 1
 beacon3.beacon_counter = "total"
 
@@ -182,7 +184,7 @@ beacon.icons_positioning = {{
     separation_multiplier = 1.1,
     multi_row_initial_height_modifier = -.3
 }}
-beacon.profile = {1,0}
+beacon.profile = beacon_profile
 beacon.distribution_effectivity = 1
 beacon.beacon_counter = "total"
 

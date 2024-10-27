@@ -1,6 +1,9 @@
 if settings.startup["wret-overload-enable-beaconmk3"].value == true then
 	settings.startup["wret-overload-enable-beaconmk2"].value = true
 end
+if mods["StableFoundations"] then
+	settings.startup["wret-overload-disable-overloaded"].value = false
+end
 
 require("prototypes.classic_beacon")
 require("prototypes.item")

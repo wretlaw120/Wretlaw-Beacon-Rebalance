@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.3
+Date: 27. 10. 2024
+  Changes:
+    - Fix issue with captured biter spawners.
+    - Update to RU locale.
+    - Added remote interfaces for beacon whitelisting.
+    - Even Pickier Dollies compatibility.
+---------------------------------------------------------------------------------------------------
 Version: 2.0.2
 Date: 25. 10. 2024
   Changes:
